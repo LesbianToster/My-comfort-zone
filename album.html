@@ -315,6 +315,15 @@
                 document.getElementById('sidebar-nav').style.display = 'flex';
             } else { document.getElementById('error-msg').style.display = 'block'; }
         }
+        // Перевірка при переході на сторінку
+        window.onload = function() {
+            
+            if (sessionStorage.getItem('isLoggedIn') === 'true') {
+                document.getElementById('login-overlay').style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+                document.getElementById('sidebar-nav').style.display = 'flex';
+            }
+        }
     </script>
 </body>
 </html>

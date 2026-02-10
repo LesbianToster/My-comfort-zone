@@ -455,15 +455,38 @@
 
     <script>
         function checkLogin() {
+           
             const user = document.getElementById('username').value;
             const pass = document.getElementById('password').value;
+    
             if (user === 'Ilona_Yushchenko' && pass === '09.06.2001') {
-                document.getElementById('login-overlay').style.display = 'none';
-                document.getElementById('main-content').style.display = 'block';
+            // Записуємо в пам'ять браузера, що вхід виконано
+            sessionStorage.setItem('isLoggedIn', 'true');
+        
+            document.getElementById('login-overlay').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
+            if(document.getElementById('sidebar-nav')) {
                 document.getElementById('sidebar-nav').style.display = 'flex';
-                calculateDays();
-            } else { document.getElementById('error-msg').style.display = 'block'; }
+            }
+            if(typeof calculateDays === "function") calculateDays();
+        } else { 
+            document.getElementById('error-msg').style.display = 'block'; 
         }
+    }
+
+    // Цей шматочок перевіряє статус при завантаженні сторінки
+    window.onload = function() {
+        if (sessionStorage.getItem('isLoggedIn') === 'true') {
+           
+            document.getElementById('login-overlay').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
+            if(document.getElementById('sidebar-nav')) {
+              
+                document.getElementById('sidebar-nav').style.display = 'flex';
+            }
+            if(typeof calculateDays === "function") calculateDays();
+        }
+    }
         function calculateDays() {
             const startDate = new Date('2026-01-15');
             const today = new Date();
